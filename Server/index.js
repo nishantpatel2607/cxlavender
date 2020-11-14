@@ -1,11 +1,10 @@
-let express = require('express'),
-  path = require('path'),
-  cors = require('cors'),
-  bodyParser = require('body-parser'),
-  createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const createError = require('http-errors');
 
-
-const app = express();
+var app = express();
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
@@ -13,10 +12,14 @@ app.use(
   })
 );
 app.use(cors());
-app.use(express.static(path.join(__dirname, 'public')));
 
-const routes = require('../Server/routes');
-app.use('/api', routes);
+const routes = require('./routes/emplroutes');
+const companyroutes = require('./routes/companyroutes');
+
+// const routes = require('./routes/emplroutes');
+app.use('/api/empl', routes);
+// const companyroutes = require('./routes/emplroutes');
+app.use('/api/company', companyroutes);
 
 const port = process.env.PORT || 4000;
 const server = app.listen(port, () => {
