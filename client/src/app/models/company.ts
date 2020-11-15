@@ -12,3 +12,6 @@ export interface Sizes {
   result: string[];
 }
 
+export interface Companies {
+  result: any;
+}

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Locations, Sizes } from '../models/company';
+import { Companies, Locations, Sizes } from '../models/company';
 
 @Injectable({
   providedIn: 'root',
@@ -18,5 +18,10 @@ export class CompanyService {
   getSizes(): Observable<Sizes> {
     const url = `${this.serverUrl}/sizes`;
     return this.httpClient.get<Sizes>(url);
+  }
+
+  getCompanies(): Observable<Companies> {
+    const url = `${this.serverUrl}/list`;
+    return this.httpClient.get<Companies>(url);
   }
 }

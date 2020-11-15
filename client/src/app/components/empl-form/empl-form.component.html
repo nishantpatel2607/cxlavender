@@ -1,0 +1,89 @@
+<div class="container">
+  <div class="row justify-content-center align-items-center">
+    <div class="card" style="width: 600px">
+      <div class="card-header">Employee Details</div>
+      <form [formGroup]="form" (ngSubmit)="saveForm()">
+        <div class="form-group">
+          <label for="firstname">First name</label>
+          <input
+            formControlName="firstname"
+            id="firstname"
+            type="text"
+            class="form-control"
+          />
+          <div
+            *ngIf="firstname.touched && firstname.invalid"
+            class="alert alert-danger"
+          >
+            <div *ngIf="firstname.errors.required">This field is required.</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="firstname">Last name</label>
+          <input
+            formControlName="lastname"
+            id="lastname"
+            type="text"
+            class="form-control"
+          />
+          <div
+            *ngIf="lastname.touched && lastname.invalid"
+            class="alert alert-danger"
+          >
+            <div *ngIf="lastname.errors.required">This field is required.</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="age">Age</label>
+          <input
+            formControlName="age"
+            id="age"
+            type="number"
+            class="form-control"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            formControlName="email"
+            id="email"
+            type="email"
+            class="form-control"
+          />
+          <div
+            *ngIf="email.touched && email.invalid"
+            class="alert alert-danger"
+          >
+            <div *ngIf="email.errors.required">Please enter email.</div>
+            <div *ngIf="email.errors.email">Please enter valid email.</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="firstname">Company</label>
+          <select formControlName="company" id="company" class="form-control">
+              <option *ngFor="let company of companies" [value]="company._id">
+                  {{ company.companyname }}
+                </option>
+          </select>
+            <div
+              *ngIf="company.touched && company.invalid"
+              class="alert alert-danger"
+            >
+              <div *ngIf="company.errors.required">This field is required.</div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="!form.valid">
+          Save
+        </button>
+        <button class="btn btn-warning" style="margin-left: 10px">
+          Cancel
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
