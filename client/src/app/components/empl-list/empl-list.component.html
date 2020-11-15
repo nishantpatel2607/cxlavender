@@ -2,7 +2,7 @@
   <div class="card-header">Employee Register</div>
   <div class="card-body">
     <div class="row">
-      <div class="col-7">col-8</div>
+      <div class="col-7"></div>
       <div class="col-5">
         <form>
           <div class="form-row">
@@ -10,13 +10,29 @@
               <label for="location">Filter by</label>
             </div>
             <div class="col-6">
-              <select class="form-control" id="location">
-                <option>Location</option>
+              <select
+                class="form-control"
+                id="location"
+                name="location"
+                (change)="LocationChange($event.target.value)"
+              >
+                <option [value]="">Location</option>
+                <option *ngFor="let location of locations" [value]="location">
+                  {{ location }}
+                </option>
               </select>
             </div>
             <div class="col-4">
-              <select class="form-control" id="size">
-                <option>Size</option>
+              <select
+                class="form-control"
+                id="size"
+                name="size"
+                (change)="SizeChange($event.target.value)"
+              >
+                <option [value]="">Size</option>
+                <option *ngFor="let size of sizes" [value]="size">
+                  {{ size }}
+                </option>
               </select>
             </div>
           </div>
@@ -25,51 +41,53 @@
     </div>
     <p></p>
     <div class="row">
-      <table class="table table-bordered">
+      <table class="table table-bordered table-sm">
         <thead>
           <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email address</th>
+            <th scope="col">age</th>
+            <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td colspan="2">Larry the Bird</td>
-            <td>@twitter</td>
+          <tr *ngFor="let empl of emplList">
+            <td>{{ empl.firstname }} {{ empl.lastname }}</td>
+            <td>{{ empl.email }}</td>
+            <td>{{ empl.age }}</td>
+            <td style="text-align: center">
+              <button type="button" class="btn btn-success">Edit</button>
+              <button
+                type="button"
+                class="btn btn-danger"
+                style="margin-left: 10px"
+              >
+                Delete
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
     <div class="row">
-      <div class="col-11">
-        <nav aria-label="Page navigation example">
+      <div class="col-9">
+        <nav aria-label="Page navigation">
           <ul class="pagination">
             <li class="page-item">
-              <a class="page-link" href="#" aria-label="Previous">
+              <a class="page-link" aria-label="Previous" (click) = "onPreviousPageClick()">
                 <span aria-hidden="true">&laquo;</span>
                 <span class="sr-only">Previous</span>
               </a>
             </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li
+              class="page-item"
+              *ngFor="let page of totalPages"
+              [ngClass]="isPageActive(page) ? 'active' : ''"
+            >
+              <a class="page-link" (click)="onPageClick(page)">{{ page }}</a>
+            </li>
             <li class="page-item">
-              <a class="page-link" href="#" aria-label="Next">
+              <a class="page-link"  aria-label="Next" (click) = "onNextPageClick()">
                 <span aria-hidden="true">&raquo;</span>
                 <span class="sr-only">Next</span>
               </a>
@@ -77,7 +95,12 @@
           </ul>
         </nav>
       </div>
-      <div class="col-1"><button type="button" class="btn btn-primary">Add new</button></div>
+      <div class="col-3">
+        <button type="button" class="btn btn-primary">Add new</button>
+        <button type="button" class="btn btn-warning" style="margin-left: 10px">
+          Export CSV
+        </button>
+      </div>
     </div>
   </div>
 </div>

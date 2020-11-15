@@ -1,0 +1,50 @@
+[{
+  "_id": {
+    "$oid": "5faf89d71a62fe3f7cd9637f"
+  },
+  "companyname": "Macrohard Corporation",
+  "size": "Large",
+  "location": "Sydney"
+},{
+  "_id": {
+    "$oid": "5faf8a181a62fe3f7cd9638f"
+  },
+  "companyname": "Acme Corporation",
+  "size": "Medium",
+  "location": "Melbourne"
+},{
+  "_id": {
+    "$oid": "5faf8a541a62fe3f7cd963a3"
+  },
+  "companyname": "Boogle",
+  "size": "Small",
+  "location": "Brisbane"
+},{
+  "_id": {
+    "$oid": "5faf8ab31a62fe3f7cd963c1"
+  },
+  "companyname": "Tequila Mockingbird",
+  "size": "Large",
+  "location": "Sydney"
+},{
+  "_id": {
+    "$oid": "5faf8af51a62fe3f7cd963d7"
+  },
+  "companyname": "Amigone Funeral Home",
+  "size": "Medium",
+  "location": "Melbourne"
+},{
+  "_id": {
+    "$oid": "5faf8b291a62fe3f7cd963ed"
+  },
+  "companyname": "CXTX",
+  "size": "Small",
+  "location": "Perth"
+},{
+  "_id": {
+    "$oid": "5faf8b591a62fe3f7cd96407"
+  },
+  "companyname": "CX Lavender",
+  "size": "Medium",
+  "location": "Sydney"
+}]

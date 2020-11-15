@@ -5,38 +5,37 @@ var { Employee } = require('../models/employee');
 var { Company } = require('../models/company');
 const _ = require('lodash');
 
+
 //get all employees
 cxRoute.route('/list').get(async (req, res) => {
   const { page = 1, location = '', size = '' } = req.query;
-  //console.log(page, location, size);
   const limit = 10;
 
   const searchCondition = {};
   if (location !== '') searchCondition.location = location;
-  if (size != '')searchCondition.size = size
-
+  if (size != '') searchCondition.size = size;
+  console.log(searchCondition);
 
   const companies = await Company.find(searchCondition).select('_id');
   const cmpary = [];
   companies.forEach((el) => {
-    cmpary.push( "" + el._id );
+    cmpary.push('' + el._id);
   });
 
-  console.log(cmpary);
+  const employees = await Employee.find();
 
-  const employees = await Employee.find()
-    .limit(limit)
-    .skip((page - 1) * limit)
-    .exec();
-  const count = await Employee.find().count();
+  var result = employees.filter((emp) => cmpary.includes(emp.company));
+  const count = result.length;
+  result = result.splice((page - 1) * limit, 10);
 
-  const result = employees.filter((emp) => cmpary.includes(emp.company));
   res.json({
     result,
     totalPages: Math.ceil(count / limit),
     currentPage: page,
   });
 });
+
+
 
 //get employee
 cxRoute.route('/:id').get((req, res) => {

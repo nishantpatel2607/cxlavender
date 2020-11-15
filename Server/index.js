@@ -20,6 +20,7 @@ const companyroutes = require('./routes/companyroutes');
 app.use('/api/empl', routes);
 // const companyroutes = require('./routes/emplroutes');
 app.use('/api/company', companyroutes);
+app.use("/public", express.static(__dirname + "/public"));
 
 const port = process.env.PORT || 4000;
 const server = app.listen(port, () => {
