@@ -4,6 +4,8 @@ const { ObjectID } = require('mongodb');
 var { Employee } = require('../models/employee');
 var { Company } = require('../models/company');
 const _ = require('lodash');
+const fs = require('fs');
+const path = require('path');
 
 //get all employees
 cxRoute.route('/list').get(async (req, res) => {
@@ -32,6 +34,32 @@ cxRoute.route('/list').get(async (req, res) => {
     totalPages: Math.ceil(count / limit),
     currentPage: page,
   });
+});
+
+//export csv
+cxRoute.route('/export').get(async (req, res) => {
+  const { location = '', size = '' } = req.query;
+
+  const searchCondition = {};
+  if (location !== '') searchCondition.location = location;
+  if (size != '') searchCondition.size = size;
+
+  const companies = await Company.find(searchCondition).select('_id');
+  const cmpary = [];
+  companies.forEach((el) => {
+    cmpary.push('' + el._id);
+  });
+
+  const employees = await Employee.find();
+
+  var result = employees.filter((emp) => cmpary.includes(emp.company));
+  result = JSON.parse(JSON.stringify(result));
+  var csv = arrayToCSV(result);
+  fs.writeFileSync('./public/exported.csv', csv);
+ 
+  const filepath = path.join(__dirname, '../');
+  res.download(filepath + '/public/exported.csv','exported.csv');
+ 
 });
 
 //get employee
@@ -123,4 +151,9 @@ cxRoute.route('/:id').delete((req, res) => {
     });
 });
 
+function arrayToCSV(data) {
+  csv = data.map((row) => Object.values(row));
+  csv.unshift(Object.keys(data[0]));
+  return csv.join('\n');
+}
 module.exports = cxRoute;

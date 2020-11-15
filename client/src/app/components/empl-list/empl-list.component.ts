@@ -29,7 +29,6 @@ export class EmplListComponent implements OnInit, OnDestroy {
   totalPages: number[] = [1];
   currentPage = 1;
   emplSubscription: Subscription;
-  
 
   private _selectedLocation = '';
   public get selectedLocation() {
@@ -81,6 +80,11 @@ export class EmplListComponent implements OnInit, OnDestroy {
       });
   }
 
+  download() {
+    this.empservice
+      .downloadEmployeeList(this.selectedLocation, this.selectedSize);
+      //.subscribe((result) => console.log(result));
+  }
   deleteEmployee(id) {
     this.empservice.deleteEmployee(id).subscribe((result) => {
       this.getEmployees(this.currentPage);
@@ -91,7 +95,7 @@ export class EmplListComponent implements OnInit, OnDestroy {
     this.router.navigate([`/${id}`]);
   }
 
-  newEmployee(){
+  newEmployee() {
     this.router.navigate(['/new']);
   }
 

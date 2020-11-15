@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Employee, EmployeeList, EmployeeResult } from '../models/employee';
-
 @Injectable({
   providedIn: 'root',
 })
@@ -43,5 +42,13 @@ export class EmpService {
     return this.httpClient.put(url, body, {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
     });
+  }
+
+  downloadEmployeeList(
+    location: string,
+    size: string
+  ) {
+    const url = `${this.serverUrl}/export?location=${location}&size=${size}`;
+    this.httpClient.get<any>(url).subscribe((blob) => console.log(blob));
   }
 }
