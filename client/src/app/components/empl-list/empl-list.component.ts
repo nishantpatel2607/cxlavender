@@ -16,7 +16,14 @@ export class EmplListComponent implements OnInit, OnDestroy {
     private companyService: CompanyService
   ) {}
 
-  emplList: Employee[] = [];
+  private _emplList;
+  public get emplList() {
+    return this._emplList;
+  }
+  public set emplList(value) {
+    this._emplList = value;
+  }
+
   totalPages: number[] = [1];
   currentPage = 1;
   emplSubscription: Subscription;
@@ -63,12 +70,17 @@ export class EmplListComponent implements OnInit, OnDestroy {
       .getEmployeeList(page, this.selectedLocation, this.selectedSize)
       .subscribe((result) => {
         this.emplList = result.result;
-        console.log(result);
         this.currentPage = result.currentPage;
         this.totalPages = Array(result.totalPages)
           .fill(0)
           .map((x, i) => i + 1);
       });
+  }
+
+  deleteEmployee(id) {
+    this.empservice.deleteEmployee(id).subscribe((result) => {
+      this.getEmployees(this.currentPage);
+    });
   }
 
   isPageActive(page) {
@@ -94,7 +106,6 @@ export class EmplListComponent implements OnInit, OnDestroy {
   LocationChange(location) {
     this.currentPage = 1;
     this.selectedLocation = location == 'Location' ? '' : location;
-    console.log(this.selectedLocation);
   }
   SizeChange(size) {
     this.currentPage = 1;
