@@ -1,4 +1,5 @@
 export interface Employee {
+  _id: string;
   firstname: string;
   lastname: string;
   age: number;
@@ -7,7 +8,11 @@ export interface Employee {
 }
 
 export interface EmployeeList {
-    result: Employee[];
-    totalPages: number;
-    currentPage: number;
+  result: Employee[];
+  totalPages: number;
+  currentPage: number;
+}
+
+export interface EmployeeResult {
+  result: Employee;
 }

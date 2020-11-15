@@ -5,7 +5,6 @@ var { Employee } = require('../models/employee');
 var { Company } = require('../models/company');
 const _ = require('lodash');
 
-
 //get all employees
 cxRoute.route('/list').get(async (req, res) => {
   const { page = 1, location = '', size = '' } = req.query;
@@ -14,7 +13,7 @@ cxRoute.route('/list').get(async (req, res) => {
   const searchCondition = {};
   if (location !== '') searchCondition.location = location;
   if (size != '') searchCondition.size = size;
-  console.log(searchCondition);
+  //  console.log(searchCondition);
 
   const companies = await Company.find(searchCondition).select('_id');
   const cmpary = [];
@@ -35,11 +34,8 @@ cxRoute.route('/list').get(async (req, res) => {
   });
 });
 
-
-
 //get employee
 cxRoute.route('/:id').get((req, res) => {
-  console.log('1');
   var id = req.params.id;
 
   if (!ObjectID.isValid(id)) {
@@ -60,7 +56,6 @@ cxRoute.route('/:id').get((req, res) => {
 
 //create employee
 cxRoute.route('/').post((req, res) => {
-  console.log('2');
   var emp = new Employee({
     firstname: req.body.firstname,
     lastname: req.body.lastname,
@@ -81,8 +76,6 @@ cxRoute.route('/').post((req, res) => {
 
 //update employee
 cxRoute.route('/:id').put((req, res) => {
-    console.log('3');
-
   var id = req.params.id;
 
   if (!ObjectID.isValid(id)) {
@@ -111,7 +104,6 @@ cxRoute.route('/:id').put((req, res) => {
 
 //delete employee
 cxRoute.route('/:id').delete((req, res) => {
-  console.log('delete');
   var id = req.params.id;
 
   if (!ObjectID.isValid(id)) {

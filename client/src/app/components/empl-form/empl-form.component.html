@@ -10,6 +10,7 @@
             id="firstname"
             type="text"
             class="form-control"
+            
           />
           <div
             *ngIf="firstname.touched && firstname.invalid"
@@ -26,6 +27,7 @@
             id="lastname"
             type="text"
             class="form-control"
+            
           />
           <div
             *ngIf="lastname.touched && lastname.invalid"
@@ -42,6 +44,7 @@
             id="age"
             type="number"
             class="form-control"
+            
           />
         </div>
 
@@ -52,6 +55,7 @@
             id="email"
             type="email"
             class="form-control"
+            
           />
           <div
             *ngIf="email.touched && email.invalid"
@@ -63,8 +67,8 @@
         </div>
 
         <div class="form-group">
-          <label for="firstname">Company</label>
-          <select formControlName="company" id="company" class="form-control">
+          <label for="company">Company</label>
+          <select formControlName="company" id="company" class="form-control"  >
               <option *ngFor="let company of companies" [value]="company._id">
                   {{ company.companyname }}
                 </option>
@@ -80,7 +84,7 @@
         <button type="submit" class="btn btn-primary" [disabled]="!form.valid">
           Save
         </button>
-        <button class="btn btn-warning" style="margin-left: 10px">
+        <button class="btn btn-warning" style="margin-left: 10px" (click)="cancelForm()">
           Cancel
         </button>
       </form>

@@ -14,6 +14,7 @@ const routes: Routes = [
     component: EmplListComponent,
   },
   { path: 'new', component: EmplFormComponent },
+  {path: ':id', component: EmplFormComponent }
 ];
 
 @NgModule({

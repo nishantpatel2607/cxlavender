@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Locations, Sizes } from 'src/app/models/company';
 import { Employee } from 'src/app/models/employee';
@@ -13,7 +14,8 @@ import { EmpService } from 'src/app/services/empservice.service';
 export class EmplListComponent implements OnInit, OnDestroy {
   constructor(
     private empservice: EmpService,
-    private companyService: CompanyService
+    private companyService: CompanyService,
+    private router: Router
   ) {}
 
   private _emplList;
@@ -27,6 +29,7 @@ export class EmplListComponent implements OnInit, OnDestroy {
   totalPages: number[] = [1];
   currentPage = 1;
   emplSubscription: Subscription;
+  
 
   private _selectedLocation = '';
   public get selectedLocation() {
@@ -69,6 +72,7 @@ export class EmplListComponent implements OnInit, OnDestroy {
     this.emplSubscription = this.empservice
       .getEmployeeList(page, this.selectedLocation, this.selectedSize)
       .subscribe((result) => {
+        console.log(result);
         this.emplList = result.result;
         this.currentPage = result.currentPage;
         this.totalPages = Array(result.totalPages)
@@ -81,6 +85,14 @@ export class EmplListComponent implements OnInit, OnDestroy {
     this.empservice.deleteEmployee(id).subscribe((result) => {
       this.getEmployees(this.currentPage);
     });
+  }
+
+  editEmployee(id) {
+    this.router.navigate([`/${id}`]);
+  }
+
+  newEmployee(){
+    this.router.navigate(['/new']);
   }
 
   isPageActive(page) {
